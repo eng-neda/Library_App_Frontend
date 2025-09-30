@@ -1,8 +1,12 @@
 let isSubmit = false;
+const overlay = document.getElementById("coverage");
+const loginBtn = document.getElementById("loginBtn");
+
 function handleSubmit(event) {
   event.preventDefault();
   if (isSubmit) return;
   isSubmit = true;
+
   const form = document.querySelector("#loginForm");
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#password").value;
@@ -17,6 +21,9 @@ function handleSubmit(event) {
     return;
   }
 
+  overlay.style.display = "flex";
+  loginBtn.disabled = true;
+
   fetch("https://karyar-library-management-system.liara.run/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -28,9 +35,11 @@ function handleSubmit(event) {
       return response.json();
     })
     .then((data) => {
-      console.log("ورود با موفقیت انجام شد.:", data);
+      console.log("ورود با موفقیت انجام شد:", data);
       if (data && data.token) {
-        localStorage.setItem("Token", data.token);
+        document.cookie =
+          "token=${data.token}; path=/; max-age=3600; secure; samesite=strict";
+        console.log("توکن در کوکی ذخیره شد");
       }
     })
     .catch((err) => {
@@ -41,6 +50,8 @@ function handleSubmit(event) {
       }
     })
     .finally(() => {
+      overlay.style.display = "none";
+      loginBtn.disabled = false;
       isSubmit = false;
     });
 }
