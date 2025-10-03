@@ -1,4 +1,3 @@
-////loging
 let isSubmit = false;
 const overlay = document.getElementById("coverage");
 const loginBtn = document.getElementById("loginBtn");
@@ -42,9 +41,10 @@ function handleSubmit(event) {
         console.log("توکن در کوکی ذخیره شد");
 
         if (data && data.user) {
-          localStorage.setItem("userName", data.user.firstName);
+          localStorage.setItem("firstName", data.user.firstName);
+          localStorage.setItem("lastName", data.user.lastName);
         }
-        console.log(localStorage.getItem("userName"));
+
         window.location.href = "dashboard.html";
       } else window.location.href = "login.html";
     })
