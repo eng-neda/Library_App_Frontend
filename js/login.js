@@ -43,6 +43,7 @@ function handleSubmit(event) {
         if (data && data.user) {
           localStorage.setItem("firstName", data.user.firstName);
           localStorage.setItem("lastName", data.user.lastName);
+          localStorage.setItem("studentId", data.user.id);
         }
 
         window.location.href = "dashboard.html";
