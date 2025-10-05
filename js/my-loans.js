@@ -30,11 +30,82 @@ document.addEventListener("DOMContentLoaded", () => {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log("داده ها دریافت شد.", data);
-      const loanedBooks = data;
-    });
+      console.log("داده‌ها دریافت شد:", data);
+
+      // نمایش جدول وام‌ها
+      const container = document.querySelector("#loans tbody");
+      container.innerHTML = "";
+
+      data.data.forEach((item) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>
+            <strong>${item.book.title}</strong><br />
+            <small style="color: #666">ISBN: ${item.book.isbn}</small>
+          </td>
+          <td>${item.book.author}</td>
+          <td>${new Date(item.loanDate).toISOString().split("T")[0]}</td>
+          <td>
+            <span class="status ${
+              item.status === "active" ? "status-active" : "status-returned"
+            }">
+              ${item.status}
+            </span>
+          </td>
+          <td>
+            ${
+              item.status === "active"
+                ? `<button class="btn btn-success btn-sm" data-loan-id="${item.id}">Return</button>`
+                : `<button class="btn btn-secondary btn-sm" disabled>Returned</button>`
+            }
+          </td>
+        `;
+        container.appendChild(row);
+      });
+
+      // اضافه کردن EventListener به دکمه‌های Return
+      document.querySelectorAll(".btn.btn-success.btn-sm").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          const loanId = e.target.dataset.loanId;
+          const userId = localStorage.getItem("studentId");
+
+          if (!userId) {
+            alert("شناسه کاربر موجود نیست. لطفاً دوباره وارد شوید.");
+            return;
+          }
+
+          btn.disabled = true;
+
+          try {
+            const res = await fetch(
+              `https://karyar-library-management-system.liara.run/api/loans/${loanId}/return`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ userId }),
+              }
+            );
+
+            if (!res.ok) {
+              const msg = await res.text();
+              throw new Error(msg || "Return failed");
+            }
+
+            const result = await res.json();
+            console.log("کتاب بازگردانده شد:", result);
+            alert("کتاب با موفقیت بازگردانده شد");
+            location.reload();
+          } catch (err) {
+            console.error("خطا در بازگرداندن کتاب:", err);
+            alert("خطا در بازگرداندن کتاب");
+          } finally {
+            btn.disabled = false;
+          }
+        });
+      });
+    })
+    .catch((err) => console.error("Error fetching loans:", err));
 });
-//////////////////////////////////////////////////////////////////////////////////////
-//listin of loanedBooks
-const container = document.getElementById("loans");
-container.innerHTML = "";
