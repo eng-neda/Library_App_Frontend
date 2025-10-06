@@ -15,11 +15,17 @@ Books Page to browse and borrow books
 My Loans Page to manage borrowed books
 
 📂 Project Structure
+
 /css # Styles
+
 /js # Frontend logic (auth, dashboard, books, loans)
+
 index.html # Login page
+
 dashboard.html
+
 books.html
+
 myloans.html
 
 ⚡ Usage
@@ -32,7 +38,7 @@ Navigate the dashboard, borrow books, and manage your loans
 
 🛠 Tech Stack
 
-HTML5 & CSS3 (RTL)
+HTML5 & CSS3
 
 JavaScript
 
