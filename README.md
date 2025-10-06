@@ -1,4 +1,5 @@
 <div dir="rtl" lang="en">
+
 Library Management System - Frontend
 
 A friendly frontend for a complete Library Management System built with JavaScript, HTML, and CSS. The backend is already implemented and deployed.
@@ -37,7 +38,7 @@ JavaScript
 
 Fetch API for backend communication
 
-Author
+Author:
 Neda Pourandish
 
 https://github.com/eng-neda/Library_App_Frontend
