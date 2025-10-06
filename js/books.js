@@ -147,5 +147,80 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch((error) => {
       console.error("خطا:", error);
     });
+
+  ////////////////////////////////////////////////////////////////////////////////////////details of books
+
+  const dialog = document.getElementById("myDialog");
+  const closeBtn = document.getElementById("closeBtn");
+  const p = dialog.querySelector("p");
+
+  closeBtn.addEventListener("click", () => dialog.close());
+
+  const booksList = document.getElementById("booksList");
+
+  booksList.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".btn.btn-secondary.btn-sm");
+    if (!btn) return;
+    const bookCard = btn.closest(".card");
+    const borrowBtn = bookCard.querySelector(".borrow-btn");
+
+    if (!borrowBtn) {
+      alert("شناسه کتاب موجود نیست!");
+      return;
+    }
+
+    const bookId = borrowBtn.dataset.id;
+    const userId = localStorage.getItem("studentId");
+    const token = localStorage.getItem("Token");
+
+    if (!userId) {
+      alert("شناسه کاربر موجود نیست. لطفاً دوباره وارد شوید.");
+      return;
+    }
+    if (!bookId) {
+      alert("شناسه کتاب مشخص نشده.");
+      return;
+    }
+    if (!token) {
+      alert("توکن ورود موجود نیست.");
+      return;
+    }
+
+    btn.disabled = true;
+    p.textContent = "در حال بارگذاری اطلاعات کتاب...";
+
+    try {
+      const res = await fetch(
+        `https://karyar-library-management-system.liara.run/api/books/${bookId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.ok) {
+        const msg = await res.text().catch(() => null);
+        throw new Error(msg || "خطا در دریافت اطلاعات کتاب");
+      }
+
+      const result = await res.json();
+
+      p.innerHTML = `
+      <strong>Title:</strong> ${result.title || "—"}<br>
+      <strong>Author:</strong> ${result.author || "—"}<br>
+      <strong>Description:</strong> ${result.description || "—"}
+    `;
+
+      dialog.showModal();
+    } catch (err) {
+      console.error("خطا در نمایش جزئیات کتاب", err);
+      p.textContent = "خطا در دریافت اطلاعات کتاب!";
+      alert("خطا در نمایش جزئیات کتاب");
+    } finally {
+      btn.disabled = false;
+    }
+  });
 });
-////////////////////////////////////////////////////////////////////////////////////////details of books
