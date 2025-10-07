@@ -65,5 +65,3 @@ function handleSubmit(event) {
     });
 }
 document.querySelector("#loginForm").addEventListener("submit", handleSubmit);
-
-//نشان دادن پیغام ها به کاربر
