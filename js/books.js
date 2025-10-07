@@ -209,9 +209,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = await res.json();
 
       p.innerHTML = `
-      <strong>Title:</strong> ${result.title || "—"}<br>
-      <strong>Author:</strong> ${result.author || "—"}<br>
-      <strong>Description:</strong> ${result.description || "—"}
+      <strong>Title:</strong> ${result.title}<br>
+      <strong>Author:</strong> ${result.author}<br>
+      <strong>Description:</strong> ${result.description}
     `;
 
       dialog.showModal();
