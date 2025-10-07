@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+  }
+
+  const token = getCookie("token");
+
+  const allowedPages = ["index.html", "login.html"];
+  const currentPage = window.location.pathname.split("/").pop();
+
+  if (!allowedPages.includes(currentPage) && !token) {
+    window.location.href = "login.html";
+  }
   const firstName = localStorage.getItem("firstName");
   const lastName = localStorage.getItem("lastName");
 
@@ -8,15 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("user-avatar").textContent = firstName
     .charAt(0)
     .toUpperCase();
-
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-    return null;
-  }
-
-  const token = getCookie("token");
 
   fetch(
     "https://karyar-library-management-system.liara.run/api/loans/my-loans",
@@ -32,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       console.log("داده‌ها دریافت شد:", data);
 
-      // نمایش جدول وام‌ها
       const container = document.querySelector("#loans tbody");
       container.innerHTML = "";
 
@@ -62,8 +67,21 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         container.appendChild(row);
       });
+      const loans = Array.isArray(data) ? data : data.data;
 
-      // اضافه کردن EventListener به دکمه‌های Return
+      const activeCount = loans.filter(
+        (loan) => loan.status === "active"
+      ).length;
+      const returnedCount = loans.filter(
+        (loan) => loan.status === "returned"
+      ).length;
+
+      document.getElementById("activeLoans").textContent = activeCount;
+      document.getElementById("returnedBooks").textContent = returnedCount;
+
+      localStorage.setItem("activeLoans", activeCount);
+      localStorage.setItem("returnedBooks", returnedCount);
+
       document.querySelectorAll(".btn.btn-success.btn-sm").forEach((btn) => {
         btn.addEventListener("click", async (e) => {
           const loanId = e.target.dataset.loanId;
@@ -97,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await res.json();
             console.log("کتاب بازگردانده شد:", result);
             alert("کتاب با موفقیت بازگردانده شد");
-            location.reload();
           } catch (err) {
             console.error("خطا در بازگرداندن کتاب:", err);
             alert("خطا در بازگرداندن کتاب");

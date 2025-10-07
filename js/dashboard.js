@@ -1,13 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const firstName = localStorage.getItem("firstName");
-  const lastName = localStorage.getItem("lastName");
-
-  document.getElementById("userName").textContent = `${firstName} ${lastName}`;
-  document.getElementById("studentName").textContent = firstName;
-  document.getElementById("userAvatar").textContent = firstName
-    .charAt(0)
-    .toUpperCase();
-
   function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -16,6 +7,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const token = getCookie("token");
+
+  const allowedPages = ["index.html", "login.html"];
+  const currentPage = window.location.pathname.split("/").pop();
+
+  if (!allowedPages.includes(currentPage) && !token) {
+    window.location.href = "login.html";
+  }
+  const firstName = localStorage.getItem("firstName");
+  const lastName = localStorage.getItem("lastName");
+
+  document.getElementById("userName").textContent = `${firstName} ${lastName}`;
+  document.getElementById("studentName").textContent = firstName;
+  document.getElementById("userAvatar").textContent = firstName
+    .charAt(0)
+    .toUpperCase();
 
   fetch("https://karyar-library-management-system.liara.run/api/auth/me", {
     method: "GET",

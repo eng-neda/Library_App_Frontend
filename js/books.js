@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+  }
+
+  const token = getCookie("token");
+
+  const allowedPages = ["index.html", "login.html"];
+  const currentPage = window.location.pathname.split("/").pop();
+
+  if (!allowedPages.includes(currentPage) && !token) {
+    window.location.href = "login.html";
+  }
   const firstName = localStorage.getItem("firstName");
   const lastName = localStorage.getItem("lastName");
 
@@ -8,15 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("user-avatar").textContent = firstName
     .charAt(0)
     .toUpperCase();
-
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-    return null;
-  }
-
-  const token = getCookie("token");
 
   fetch("https://karyar-library-management-system.liara.run/api/books", {
     method: "GET",
@@ -171,7 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const bookId = borrowBtn.dataset.id;
     const userId = localStorage.getItem("studentId");
-    const token = localStorage.getItem("Token");
 
     if (!userId) {
       alert("شناسه کاربر موجود نیست. لطفاً دوباره وارد شوید.");
@@ -179,10 +184,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (!bookId) {
       alert("شناسه کتاب مشخص نشده.");
-      return;
-    }
-    if (!token) {
-      alert("توکن ورود موجود نیست.");
       return;
     }
 
@@ -202,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (!res.ok) {
-        const msg = await res.text().catch(() => null);
+        const msg = await res.text();
         throw new Error(msg || "خطا در دریافت اطلاعات کتاب");
       }
 

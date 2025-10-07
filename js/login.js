@@ -5,8 +5,6 @@ const form = document.getElementById("loginForm");
 
 function handleSubmit(event) {
   event.preventDefault();
-  if (isSubmit) return;
-  isSubmit = true;
 
   const email = document.querySelector("#email").value;
   const password = document.querySelector("#password").value;
@@ -20,6 +18,8 @@ function handleSubmit(event) {
     alert("لطفاً ایمیل و رمز عبور را وارد کنید.");
     return;
   }
+  if (isSubmit) return;
+  isSubmit = true;
 
   overlay.style.display = "flex";
   loginBtn.disabled = true;
