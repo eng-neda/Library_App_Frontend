@@ -92,6 +92,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  overflow-x: scroll;
 }
 
 .card-header {
@@ -204,7 +205,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  overflow-x: scroll;
+  table-layout: fixed;
 }
 
 .table th,
@@ -390,10 +391,11 @@ body {
   font-size: 1.5rem;
 }
 
-/* Responsive Design */
+/* Responsive Design  tablet*/
 @media (max-width: 768px) {
   .header-content {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 1rem;
   }
 
@@ -424,6 +426,41 @@ body {
   .grid-3,
   .grid-4 {
     grid-template-columns: 1fr;
+  }
+}
+/* Responsive Design  mobile*/
+@media (max-width: 480px) {
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+  }
+  .nav a {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: stretch;
+  }
+  .actions .btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.95rem;
   }
 }
 

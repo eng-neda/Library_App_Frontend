@@ -46,35 +46,45 @@ document.addEventListener("DOMContentLoaded", () => {
         card.classList.add("card");
 
         card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-            <h3 style="margin: 0; color: #2c3e50">${book.title}</h3>
-            <span class="status ${
-              book.availableCopies > 0
-                ? "status-available"
-                : "status-unavailable"
-            }">
-              ${book.availableCopies > 0 ? "Available" : "Unavailable"}
-            </span>
-          </div>
-          <p><strong>Author:</strong> ${book.author}</p>
-          <p><strong>ISBN:</strong> ${book.isbn}</p>
-          <p><strong>Category:</strong> ${book.category}</p>
-          <p><strong>Available Copies:</strong> ${book.availableCopies}</p>
-          <p style="margin-bottom:1rem; font-size:0.9rem; color:#555">${
-            book.description
-          }</p>
-          <div style="display: flex; gap: 0.5rem">
-            <button class="btn btn-primary btn-sm borrow-btn" data-id="${
-              book._id || book.id
-            }" ${book.availableCopies === 0 ? "disabled" : ""}>
-              Borrow Book
-            </button>
-            <button class="btn btn-secondary btn-sm">View Details</button>
-          </div>
-        `;
+    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+      <h3 style="margin: 0; color: #2c3e50">${book.title}</h3>
+      <span class="status ${
+        book.availableCopies > 0 ? "status-available" : "status-unavailable"
+      }">
+        ${book.availableCopies > 0 ? "Available" : "Unavailable"}
+      </span>
+    </div>
+    <p><strong>Author:</strong> ${book.author}</p>
+    <p><strong>ISBN:</strong> ${book.isbn}</p>
+    <p><strong>Category:</strong> ${book.category}</p>
+    <p><strong>Available Copies:</strong> ${book.availableCopies}</p>
+    <p style="margin-bottom:1rem; font-size:0.9rem; color:#555">
+      ${book.description}
+    </p>
+  `;
+
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.style.display = "flex";
+        buttonsDiv.style.gap = "0.5rem";
+
+        buttonsDiv.innerHTML = `
+    <button 
+      class="btn btn-primary btn-sm borrow-btn" 
+      data-id="${book.id}" 
+      ${book.availableCopies === 0 ? "disabled" : ""}
+    >
+      ${book.availableCopies === 0 ? "Out of Stock" : "Borrow Book"}
+    </button>
+    <button class="btn btn-secondary btn-sm view-details-btn">
+      View Details
+    </button>
+  `;
+
+        card.appendChild(buttonsDiv);
 
         container.appendChild(card);
       });
+
       ////////////////////////////////////////////////////////////////////////////////
       //cashing:
       const casheKey = "booksCashe";
