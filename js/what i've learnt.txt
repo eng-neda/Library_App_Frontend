@@ -1,0 +1,35 @@
+login section:
+
+..> formData: 
+ baraye data gereftan az tag form search kardam be formData residam. vaghti email , password ba dataForm az form gereftam to ye moteghayer be esme formValue save kardam va dar body darkhast kozashtam, ama error dad va  motevaje shodam dataForm barye reading data estefade mishe na sending :) 
+
+..> window.location.href: Browser be address madenazar hedayat mikone.vaghti ba js mikhahim address dehi konim. href mizarim address jadid baz mikone va dar history ham save mikone.
+
+..> vaghti ke in shart gozashtam, "  if (!formValue.email || !formValue.password) {
+    alert("لطفاً ایمیل و رمز عبور را وارد کنید.");
+    return;
+  }"  moghe test aslan alert neshon nadad, fahmidam be khater  required tag form bode/ba delete required ta form, shart dar js kar kard.
+
+  ////////////////////////////////////////////////////////////////////////////////////dashboard section:
+
+..>nahve khandan token az cookie ke dar marhale ghable az server gerfte boodim, az ai porsidam.yad gereftam age chanta cookie zakhire dashtim che function benevisam, aga faghat ye meghdar dar cookie zakhire dashtam (mese hami prj) che functioni benevisam.
+
+..>const currentPage = window.location.pathname.split("/").pop(); in code baes mishe faghat ghesmat akhar araye pop she va bargarde , mesal:http://127.0.0.1:5500/dashboard.html az in address ma faghat dashboard.html mikhahim .
+
+..> mohemtarin section ke yad gereftam: fetch("url", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+}}),
+    yani meghdar token be sourat ye string dar Beare zakhire mishe , zamani ke mikhahim token be server ersal konim ta be ma ejaze anjam ye seri kar dahad.
+    //////////////////////////////////////////////////////////////////////////////////
+    books section:
+    
+ ..> chaleshi tarin section prj barae man:cash kardan info Api baraye 5min, aval ba timeOut time barye clear cash eijad kardam, ama ba search motevaje shodam timeOut ba reload kardan page nabood mishe,nazdi Hae deedline motevaje in mozoh shodam, serach kardam  ba timestamp ashna shodam ,ama dige forsat nkardam daghigh yadesh begiram o code taghir bedam.va hamchenan in bag hamrah my prj hast :/
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+my-loans section:
+
+..> dialog tag: az in tag barye namayesh view details estefade kardam,tag karbordi ba syntax sadeh. 
