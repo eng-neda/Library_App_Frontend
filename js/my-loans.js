@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         container.appendChild(row);
       });
-      const loans = Array.isArray(data) ? data : data.data;
 
+      const loans = Array.isArray(data) ? data : data.data;
       const activeCount = loans.filter(
         (loan) => loan.status === "active"
       ).length;
@@ -80,9 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.getElementById("activeLoans").textContent = activeCount;
       document.getElementById("returnedBooks").textContent = returnedCount;
+      document.getElementById("totalLoan").textContent = activeCount;
 
       localStorage.setItem("activeLoans", activeCount);
       localStorage.setItem("returnedBooks", returnedCount);
+      localStorage.setItem("totalLoan", activeCount);
 
       document.querySelectorAll(".btn.btn-success.btn-sm").forEach((btn) => {
         btn.addEventListener("click", async (e) => {
