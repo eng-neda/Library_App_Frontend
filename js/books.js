@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         card.innerHTML = `
     <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-      <h3 style="margin: 0; color: #2c3e50">${book.title}</h3>
+      <h3 style="margin: 0; color:black" font-size=20px">${book.title}</h3>
       <span class="status ${
         book.availableCopies > 0 ? "status-available" : "status-unavailable"
       }">
@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
     <p><strong>Author:</strong> ${book.author}</p>
     <p><strong>ISBN:</strong> ${book.isbn}</p>
-    <p><strong>Category:</strong> ${book.category}</p>
+    <p><strong>Category:</strong> ${book.category.name}</p>
     <p><strong>Available Copies:</strong> ${book.availableCopies}</p>
-    <p style="margin-bottom:1rem; font-size:0.9rem; color:#555">
+    <p style="margin-bottom:1rem; font-size:0.9rem; color:#111">
       ${book.description}
     </p>
   `;
@@ -223,8 +223,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       p.innerHTML = `
       <strong>Title:</strong> ${result.title}<br>
-      <strong>Author:</strong> ${result.author}<br>
-      <strong>Description:</strong> ${result.description}
+       <strong>Publisher:</strong> ${result.publisher}<br>
+       <strong>PublisherYear:</strong> ${result.publicationYear}<br>
+       <strong>createdAt:</strong> ${result.createdAt}<br>
+     
     `;
 
       dialog.showModal();

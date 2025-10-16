@@ -87,12 +87,13 @@ body {
 
 /* Cards */
 .card {
-  background: white;
+  background-color: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  overflow-x: scroll;
 }
 
 .card-header {
@@ -107,7 +108,10 @@ body {
 .card-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: white;
+}
+.card > p {
+  color: black;
 }
 
 /* Buttons */
@@ -281,6 +285,12 @@ body {
 .stat-card {
   text-align: center;
   padding: 2rem 1rem;
+  background-color: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center left;
 }
 
 .stat-number {
@@ -291,7 +301,7 @@ body {
 }
 
 .stat-label {
-  color: #666;
+  color: white;
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -372,7 +382,23 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-image: url("../photo/index3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.glass-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(12, 12, 20, 0.35);
+  color: #ffffff;
+  text-align: left;
 }
 
 .login-card {
@@ -579,8 +605,15 @@ body {
 }
 
 dialog {
-  border: none;
-  border-radius: 30px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  padding: 2rem;
+  color: black;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
 }

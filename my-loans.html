@@ -6,6 +6,19 @@
     <title>My Loans - Library Management System</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
+  <style>
+    body {
+      background-image: url("photo/myloan2.jpg");
+      /* background-color: rgba(255, 192, 203, 0.4); */
+
+      background-size: contain;
+
+      background-position: right;
+      background-attachment: fixed;
+      height: 100vh;
+      margin: 0;
+    }
+  </style>
   <body>
     <header class="header">
       <div class="container">
@@ -27,20 +40,20 @@
 
     <main class="main-content">
       <div class="container">
-        <h1>My Loans</h1>
-        <p style="color: #666; margin-bottom: 2rem">
+        <h1 style="color: white">My Loans</h1>
+        <p style="color: black; margin-bottom: 2rem">
           View and manage your borrowed books.
         </p>
 
         <!-- Loans Table -->
-        <div class="card">
+        <div class="card" style="overflow-x: scroll">
           <div class="card-header">
-            <h2 class="card-title">Your Loans</h2>
+            <h2 class="card-title" style="color: black">Your Loans</h2>
+            <span style="color: black"
+              >Total:
+              <span style="color: black" id="totalLoan">Total: 3 loans</span>
 
-            <span style="color: #666"
-              >Total:<span style="color: #666" id="totalLoan"
-                >Total: 3 loans</span
-              ></span
+              <span>Loans</span></span
             >
           </div>
 
@@ -103,11 +116,15 @@
         <!-- Loan Statistics -->
         <div class="grid grid-2">
           <div class="card stat-card">
-            <div class="stat-number" id="activeLoans">2</div>
+            <div class="stat-number" id="activeLoans" style="color: black">
+              2
+            </div>
             <div class="stat-label">Active Loans</div>
           </div>
           <div class="card stat-card">
-            <div class="stat-number" id="returnedBooks">1</div>
+            <div class="stat-number" id="returnedBooks" style="color: black">
+              1
+            </div>
             <div class="stat-label">Returned Books</div>
           </div>
         </div>
