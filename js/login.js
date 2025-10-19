@@ -1,7 +1,6 @@
 let isSubmit = false;
 const overlay = document.getElementById("coverage");
 const loginBtn = document.getElementById("loginBtn");
-const form = document.getElementById("loginForm");
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -51,13 +50,13 @@ function handleSubmit(event) {
     })
     .catch((err) => {
       if (err.message.includes("Failed to fetch")) {
-        console.error("خطای شبکه: لطفاً اتصال اینترنت خود را بررسی کنید");
-        alert(`Error: ${err.message}`);
+        alert("خطای شبکه: لطفاً اتصال اینترنت خود را بررسی کنید");
       } else {
-        console.error("خطا:", err.message);
-        alert(`Error: ${err.message}`);
+        console.error(err.message);
+        alert("خطایی در دریافت اطلاعات رخ داده، لطفاً تلاش مجدد کنید.");
       }
     })
+
     .finally(() => {
       overlay.style.display = "none";
       loginBtn.disabled = false;
