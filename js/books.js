@@ -86,6 +86,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
         container.appendChild(card);
       });
+      ///////////////////////////////////////////////////////////////////////////////
+      //search Box
+
+      const searchInput = document.getElementById("search");
+      const searchButton = document.querySelector(".search-box button");
+
+      function filterBooks() {
+        const query = searchInput.value.trim().toLowerCase();
+
+        const cards = container.querySelectorAll(".card");
+
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          const title = card.querySelector("h3").textContent.toLowerCase();
+          const author = card
+            .querySelector("p strong")
+            .nextSibling.textContent.toLowerCase();
+
+          if (title.includes(query) || author.includes(query)) {
+            card.style.display = "block";
+            visibleCount++;
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        if (visibleCount === 0) {
+          container.innerHTML =
+            "<p style='color:white; text-align:center;'>there is no this book</p>";
+        }
+      }
+
+      searchInput.addEventListener("keyup", (e) => {
+        if (e.key === "Enter") filterBooks();
+      });
+
+      searchButton.addEventListener("click", filterBooks);
 
       ////////////////////////////////////////////////////////////////////////////////
       //cashing:
