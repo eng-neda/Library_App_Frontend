@@ -93,8 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const searchButton = document.querySelector(".search-box button");
 
       function filterBooks() {
-        const query = searchInput.value.trim().toLowerCase();
-
+        const searchedBook = searchInput.value.trim().toLowerCase();
         const cards = container.querySelectorAll(".card");
 
         let visibleCount = 0;
@@ -105,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .querySelector("p strong")
             .nextSibling.textContent.toLowerCase();
 
-          if (title.includes(query) || author.includes(query)) {
+          if (title.includes(searchedBook) || author.includes(searchedBook)) {
             card.style.display = "block";
             visibleCount++;
           } else {
@@ -115,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (visibleCount === 0) {
           container.innerHTML =
-            "<p style='color:white; text-align:center;'>there is no this book</p>";
+            "<p style='color:white; text-align:center;'>کتابی با این مشخصات یافت نشد.</p>";
         }
       }
 
@@ -204,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("خطا:", error);
     });
 
-  ////////////////////////////////////////////////////////////////////////////////////////details of books
+  //////////////////////////////////////////////////////////////////////////////////////details of books
 
   const dialog = document.getElementById("myDialog");
   const closeBtn = document.getElementById("closeBtn");
