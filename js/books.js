@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const searchInput = document.getElementById("search");
       const searchButton = document.querySelector(".search-box button");
+      const backButton = document.getElementById("backBtn");
 
       function filterBooks() {
         const searchedBook = searchInput.value.trim().toLowerCase();
@@ -116,13 +117,29 @@ document.addEventListener("DOMContentLoaded", () => {
           container.innerHTML =
             "<p style='color:white; text-align:center;'>کتابی با این مشخصات یافت نشد.</p>";
         }
+
+        backButton.style.display = "inline-block";
+      }
+
+      function showAllBooks() {
+        if (!container.querySelector(".card")) {
+          location.reload();
+          return;
+        }
+
+        const cards = container.querySelectorAll(".card");
+        cards.forEach((card) => (card.style.display = "block"));
+
+        searchInput.value = "";
+
+        backButton.style.display = "none";
       }
 
       searchInput.addEventListener("keyup", (e) => {
         if (e.key === "Enter") filterBooks();
       });
-
       searchButton.addEventListener("click", filterBooks);
+      backButton.addEventListener("click", showAllBooks);
 
       ////////////////////////////////////////////////////////////////////////////////
       //cashing:

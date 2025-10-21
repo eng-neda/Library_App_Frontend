@@ -619,7 +619,7 @@ dialog {
 /* search box */
 .search-box {
   background: white;
-  padding: 25px 30px;
+  padding: 15px 30px;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   display: flex;
