@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((responseData) => {
       console.log("داده ها دریافت شد.", responseData);
       const books = responseData.data;
-      ////////////////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////
       //listing books:
 
       const container = document.getElementById("booksList");
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         container.appendChild(card);
       });
-      ///////////////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////
       //search Box
 
       const searchInput = document.getElementById("search");
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
       searchButton.addEventListener("click", filterBooks);
       backButton.addEventListener("click", showAllBooks);
 
-      ////////////////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////
       //cashing:
       const casheKey = "booksCashe";
 
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem(casheKey);
       }, 300000);
 
-      ////////////////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////
       //Borrow
 
       document
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("خطا:", error);
     });
 
-  //////////////////////////////////////////////////////////////////////////////////////details of books
+  ///////////////////////////////////////////////////////////////////////////////details of books
 
   const dialog = document.getElementById("myDialog");
   const closeBtn = document.getElementById("closeBtn");
