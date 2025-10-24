@@ -143,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       /////////////////////////////////////////////////////////////////////////
       //cashing:
-      const casheKey = "booksCashe";
 
       async function fetchCasheFromApi() {
         const res = await fetch(
@@ -153,22 +152,32 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(data);
         return data.data;
       }
-      async function getBooks() {
-        const cashed = localStorage.getItem(casheKey);
 
-        if (cashed) {
-          const parsed = JSON.parse(cashed);
-          return parsed;
-        }
-        const books = await fetchCasheFromApi();
-        return books;
+      function setCache(key, data) {
+        const cacheData = {
+          data: data,
+          timestamp: Date.now(),
+          expireTime: 300000,
+        };
+
+        localStorage.setItem(key, JSON.stringify(cacheData));
       }
 
-      localStorage.setItem(casheKey, JSON.stringify(books));
-      //after 5min deleting of cashe
-      setTimeout(() => {
-        localStorage.removeItem(casheKey);
-      }, 300000);
+      function getCache(key) {
+        const cached = localStorage.getItem(key);
+        if (!cached) return null;
+
+        return JSON.parse(cached);
+      }
+
+      function isCacheValid(cacheData) {
+        if (!cacheData) return false;
+
+        const currentTime = Date.now();
+        const cacheAge = currentTime - cacheData.timestamp;
+
+        return cacheAge < cacheData.expireTime;
+      }
 
       /////////////////////////////////////////////////////////////////////////
       //Borrow
