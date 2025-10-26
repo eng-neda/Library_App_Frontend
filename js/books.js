@@ -77,9 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
     >
       ${book.availableCopies === 0 ? "Out of Stock" : "Borrow Book"}
     </button>
-    <button class="btn btn-secondary btn-sm view-details-btn">
-      View Details
-    </button>
+   <button 
+    class="btn btn-secondary btn-sm view-details-btn"
+    data-id="${book.id}"
+  >
+    View Details
+  </button>
   `;
 
         card.appendChild(buttonsDiv);
@@ -216,6 +219,13 @@ document.addEventListener("DOMContentLoaded", () => {
               const result = await res.json();
               console.log("کتاب امانت شد:", result);
               alert("کتاب با موفقیت به لیست امانات اضافه شد ");
+
+              btn.textContent = "Out of Stock";
+              btn.disabled = true;
+              const statusSpan = btn.closest(".card").querySelector(".status");
+              statusSpan.textContent = "Unavailable";
+              statusSpan.classList.remove("status-available");
+              statusSpan.classList.add("status-unavailable");
             } catch (err) {
               console.error("خطا در امانت گرفتن:", err);
               alert("خطا در امانت گرفتن کتاب");
@@ -242,15 +252,12 @@ document.addEventListener("DOMContentLoaded", () => {
   booksList.addEventListener("click", async (e) => {
     const btn = e.target.closest(".btn.btn-secondary.btn-sm");
     if (!btn) return;
-    const bookCard = btn.closest(".card");
-    const borrowBtn = bookCard.querySelector(".borrow-btn");
-
-    if (!borrowBtn) {
-      alert("شناسه کتاب موجود نیست!");
+    const bookId = btn.dataset.id;
+    if (!bookId) {
+      alert("شناسه کتاب مشخص نشده.");
       return;
     }
 
-    const bookId = borrowBtn.dataset.id;
     const userId = localStorage.getItem("studentId");
 
     if (!userId) {

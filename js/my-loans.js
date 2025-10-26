@@ -119,6 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await res.json();
             console.log("کتاب بازگردانده شد:", result);
             alert("کتاب با موفقیت بازگردانده شد");
+            btn.textContent = "Returned";
+            btn.classList.remove("btn-success");
+            btn.classList.add("btn-secondary");
+            btn.disabled = true;
+
+            const row = btn.closest("tr");
+            const statusSpan = row.querySelector(".status");
+            statusSpan.textContent = "returned";
+            statusSpan.classList.remove("status-active");
+            statusSpan.classList.add("status-returned");
           } catch (err) {
             console.error("خطا در بازگرداندن کتاب:", err);
             alert("خطا در بازگرداندن کتاب");
