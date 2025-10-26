@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const result = await res.json();
             console.log("کتاب بازگردانده شد:", result);
-            alert("کتاب با موفقیت بازگردانده شد");
+
             btn.textContent = "Returned";
             btn.classList.remove("btn-success");
             btn.classList.add("btn-secondary");
